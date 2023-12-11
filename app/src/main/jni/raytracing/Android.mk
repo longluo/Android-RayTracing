@@ -10,8 +10,7 @@ LOCAL_SRC_FILES := raytracer.cpp
 
 APP_OPTIM       := release
 
-LOCAL_CFLAGS := -march=armv8 \
-                -mfloat-abi=softfp \
+LOCAL_CFLAGS := -mfloat-abi=softfp \
                 -mfpu=vfp \
                 -ffast-math \
                 -O1
