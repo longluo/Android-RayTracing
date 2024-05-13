@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Android Raytracing</string>
+    <string name="app_name">RayTracer</string>
     <string name="reflections">Reflections</string>
     <string name="lightprobe">Environment</string>
     <string name="interlacing">Interlacing</string>

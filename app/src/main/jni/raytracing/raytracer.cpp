@@ -307,7 +307,8 @@ JNIEXPORT void JNICALL Java_me_longluo_raytracing_LibRayTracer_setReflectionsEna
 }
 
 extern "C"
-JNIEXPORT void JNICALL Java_me_longluo_raytracing_LibRayTracer_setLightprobeEnabled(JNIEnv * env, jobject obj, jboolean enabled) {
+JNIEXPORT void JNICALL Java_me_longluo_raytracing_LibRayTracer_setLightprobeEnabled(JNIEnv * env,
+                                                                                    jobject obj, jboolean enabled) {
 	if (scene) {
 		scene->lightProbeEnabled = enabled;
 	}
@@ -317,7 +318,8 @@ JNIEXPORT void JNICALL Java_me_longluo_raytracing_LibRayTracer_setLightprobeEnab
 }
 
 extern "C"
-JNIEXPORT jint JNICALL Java_me_longluo_raytracing_LibRayTracer_traceTouch(JNIEnv * env, jobject obj, jfloat x, jfloat y) {
+JNIEXPORT jint JNICALL Java_me_longluo_raytracing_LibRayTracer_traceTouch(JNIEnv * env, jobject obj,
+                                                                          jfloat x, jfloat y) {
 	if (!scene) {
 		return -1;
 	}
@@ -328,7 +330,8 @@ JNIEXPORT jint JNICALL Java_me_longluo_raytracing_LibRayTracer_traceTouch(JNIEnv
 }
 
 extern "C"
-JNIEXPORT void JNICALL Java_me_longluo_raytracing_LibRayTracer_moveTouch(JNIEnv * env, jobject obj, jfloat x, jfloat y, jint sphereIndex) {
+JNIEXPORT void JNICALL Java_me_longluo_raytracing_LibRayTracer_moveTouch(JNIEnv * env, jobject obj,
+                                                                         jfloat x, jfloat y, jint sphereIndex) {
 	if (!scene) {
 		return;
 	}

@@ -1,17 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdk 30
+    compileSdk 31
+
+    namespace 'me.longluo.raytracing'
 
     defaultConfig {
         applicationId "me.longluo.raytracing"
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdk 21
+        targetSdk 30
         versionCode 3
         versionName "0.3"
     }
 
     externalNativeBuild {
+
         ndkBuild {
             path "src/main/jni/Android.mk"
         }

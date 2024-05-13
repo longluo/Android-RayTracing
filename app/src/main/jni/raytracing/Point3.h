@@ -49,6 +49,7 @@ struct Point3 {
     	float x = (1.0f - t) * left.x + t * right.x;
     	float y = (1.0f - t) * left.y + t * right.y;
     	float z = (1.0f - t) * left.z + t * right.z;
+
     	return Point3(x,y,z);
     }
 

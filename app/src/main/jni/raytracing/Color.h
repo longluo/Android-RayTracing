@@ -21,10 +21,12 @@ static __inline__ uint32_t AlphaMask(uint32_t input, const uint8_t A) {
 }
 
 static __inline__ float constrain(float x) {
-	if(x < 0)
-		return 0;
-	else if(x > 255)
-		return 255;
+	if(x < 0) {
+        return 0;
+    } else if(x > 255) {
+        return 255;
+    }
+
 	return x;
 }
 

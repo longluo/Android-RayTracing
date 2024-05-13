@@ -1,4 +1,4 @@
-# Android RayTracing Demo Project
+# Android RayTracing Project
 
 
 
