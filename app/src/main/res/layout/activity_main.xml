@@ -1,17 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"/>
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/startBtn"
+        style="@style/QDRoundButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello Ray"
-        android:textSize="20sp" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="@string/start" />
+
+    <com.qmuiteam.qmui.widget.QMUIProgressBar
+        android:id="@+id/rectProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/qmui_config_color_white"
+        android:textSize="16sp"
+        app:qmui_background_color="@color/qmui_config_color_gray_8"
+        app:qmui_progress_color="@color/app_color_blue_2"
+        app:qmui_skin_background="?attr/app_skin_progress_bar_bg_color"
+        app:qmui_skin_progress_color="?attr/app_skin_progress_bar_progress_color"
+        app:qmui_skin_text_color="?attr/app_skin_progress_bar_text_color"
+        app:qmui_type="type_rect" />
 
 </LinearLayout>
