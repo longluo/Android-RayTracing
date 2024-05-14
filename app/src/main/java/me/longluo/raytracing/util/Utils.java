@@ -1,5 +1,7 @@
 package me.longluo.raytracing.util;
 
+import android.annotation.SuppressLint;
+import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -7,10 +9,10 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -21,7 +23,7 @@ import java.util.Date;
 import java.util.StringTokenizer;
 
 
-public class Utils {
+public final class Utils {
 
     private static final String LINE_SEP = System.getProperty("line.separator");
 

@@ -53,10 +53,28 @@
         app:qmui_skin_text_color="?attr/app_skin_progress_bar_text_color"
         app:qmui_type="type_rect" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_result"
+    <TextView
+        android:id="@+id/tv_ppm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="10dp"
+        android:text="Ppm File"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_jpg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="10dp"
+        android:text="Jpg File"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_result"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:background="@mipmap/ic_launcher" />

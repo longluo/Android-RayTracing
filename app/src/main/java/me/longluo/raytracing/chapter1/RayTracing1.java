@@ -1,9 +1,11 @@
-package me.longluo.raytracing;
+package me.longluo.raytracing.chapter1;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
+
+import androidx.annotation.Nullable;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,21 +16,22 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.StringTokenizer;
 
+import me.longluo.raytracing.listener.OnRayTracingListener;
 import me.longluo.raytracing.util.Constants;
 import me.longluo.raytracing.util.Utils;
 import timber.log.Timber;
 
-public class RayTracing {
+public class RayTracing1 {
 
-    private int width;
+    private int mWidth;
 
-    private int height;
+    private int mHeight;
 
     private int mTotal;
 
-    private String name;
+    private String mTitle;
 
-    private String mPath;
+    private String mStorePath;
 
     private String mPpmFileName;
 
@@ -36,24 +39,27 @@ public class RayTracing {
 
     private Handler mHandler;
 
-    public RayTracing() {
+    @Nullable
+    private OnRayTracingListener mListener;
+
+    public RayTracing1() {
         this(200, 100, "Ray Tracer");
     }
 
-    public RayTracing(int width, int height, String name) {
-        this.width = width;
-        this.height = height;
-        this.name = name;
+    public RayTracing1(int width, int height, String name) {
+        mWidth = width;
+        mHeight = height;
+        mTitle = name;
 
         mTotal = width * height;
     }
 
-    public String getPath() {
-        return mPath;
+    public void setListener(OnRayTracingListener listener) {
+        mListener = listener;
     }
 
-    public void setPath(String mPath) {
-        this.mPath = mPath;
+    public void setStorePath(String path) {
+        mStorePath = path;
     }
 
     public void setProgressHandler(Handler mHandler) {
@@ -68,7 +74,7 @@ public class RayTracing {
     private String initPpmFile() {
         SimpleDateFormat df = new SimpleDateFormat("HH_mm_ss");
 
-        String pictureName = mPath + "/" + name + "_" + df.format(new Date()) + ".ppm";
+        String pictureName = mStorePath + "/" + mTitle + "_" + df.format(new Date()) + ".ppm";
 
         return pictureName;
     }
@@ -76,7 +82,7 @@ public class RayTracing {
     private String initPngFile() {
         SimpleDateFormat df = new SimpleDateFormat("HH_mm_ss");
 
-        String pictureName = mPath + File.separator + name + "_" + df.format(new Date()) + ".jpg";
+        String pictureName = mStorePath + File.separator + mTitle + "_" + df.format(new Date()) + ".jpg";
 
         return pictureName;
     }
@@ -89,14 +95,14 @@ public class RayTracing {
         try {
             FileWriter fw = new FileWriter(mPpmFileName);
 
-            fw.write("P3\n" + width + " " + height + "\n255\n");
+            fw.write("P3\n" + mWidth + " " + mHeight + "\n255\n");
 
             int index = 0;
 
-            for (int j = height - 1; j >= 0; j--) {
-                for (int i = 0; i < width; i++) {
-                    float r = (float) i / (float) width;
-                    float g = (float) j / (float) height;
+            for (int j = mHeight - 1; j >= 0; j--) {
+                for (int i = 0; i < mWidth; i++) {
+                    float r = (float) i / (float) mWidth;
+                    float g = (float) j / (float) mHeight;
                     float b = 0.2f;
 
                     index += 1;
@@ -118,14 +124,21 @@ public class RayTracing {
 
             fw.close();
         } catch (Exception e) {
-            Timber.e("Error");
+            if (mListener != null) {
+                mListener.onFail(e);
+            }
+
             e.printStackTrace();
+        }
+
+        if (mListener != null) {
+            mListener.onRenderSuccess(mPpmFileName);
         }
 
         Timber.d("ppm file OK");
     }
 
-    public void convertPpm2Bmp() {
+    public void convertPpm2Png() {
         mImageFileName = initPngFile();
 
         Timber.i("ppm: %s, bmp: %s", mPpmFileName, mImageFileName);
@@ -135,6 +148,10 @@ public class RayTracing {
             Utils.saveBitmapToFile(bitmap, new File(mImageFileName));
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+
+        if (mListener != null) {
+            mListener.onConvertSuccess(mImageFileName);
         }
     }
 
