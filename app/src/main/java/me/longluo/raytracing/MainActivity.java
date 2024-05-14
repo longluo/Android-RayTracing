@@ -24,6 +24,7 @@ import java.util.List;
 import me.longluo.raytracing.base.BaseRecyclerAdapter;
 import me.longluo.raytracing.base.RecyclerViewHolder;
 import me.longluo.raytracing.chapter1.Chapter1_PpmActivity;
+import me.longluo.raytracing.chapter2.Chapter2_RayActivity;
 import me.longluo.raytracing.util.Utils;
 import timber.log.Timber;
 
@@ -100,8 +101,11 @@ public class MainActivity extends AppCompatActivity {
 
                 Toaster.show("Item " + position);
 
-                Intent intent = new Intent(MainActivity.this, Chapter1_PpmActivity.class);
-                startActivity(intent);
+                if (position == 0) {
+                    startActivity(new Intent(MainActivity.this, Chapter1_PpmActivity.class));
+                } else if (position == 1) {
+                    startActivity(new Intent(MainActivity.this, Chapter2_RayActivity.class));
+                }
             }
         });
 
