@@ -14,6 +14,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
+import me.longluo.raytracing.base.Ray;
+import me.longluo.raytracing.base.Vec3;
 import me.longluo.raytracing.listener.OnRayTracingListener;
 import me.longluo.raytracing.util.Constants;
 import me.longluo.raytracing.util.Utils;

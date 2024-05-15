@@ -1,4 +1,4 @@
-package me.longluo.raytracing.chapter2;
+package me.longluo.raytracing.base;
 
 
 public class Ray {
@@ -21,8 +21,13 @@ public class Ray {
     }
 
     //p(t) = A + t*B 即返回t时刻光线的位置
-    public Vec3 point_at_parameter(float t) {
+    public Vec3 point_at_parameter(double t) {
         return origin.Add(direction.Scale(t));
+    }
+
+    @Override
+    public String toString() {
+        return "Ray{" + direction.toString() + '}';
     }
 
 }

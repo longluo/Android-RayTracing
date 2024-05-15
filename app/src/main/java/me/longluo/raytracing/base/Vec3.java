@@ -1,4 +1,6 @@
-package me.longluo.raytracing.chapter3;
+package me.longluo.raytracing.base;
+
+import java.util.Arrays;
 
 public class Vec3 {
 
@@ -95,6 +97,19 @@ public class Vec3 {
         return new Vec3(a.y() * b.z() - a.z() * b.y(),
                 a.z() * b.x() - a.x() * b.z(),
                 a.x() * b.y() - a.y() * b.x());
+    }
+
+    public Vec3 cross(Vec3 v) {
+        return new Vec3(e[1] * v.z() - e[2] * v.y(),
+                e[2] * v.x() - e[0] * v.z(),
+                e[0] * v.y() - e[1] * v.x());
+    }
+
+    @Override
+    public String toString() {
+        return "Vec3{" +
+                "e=" + Arrays.toString(e) +
+                '}';
     }
 }
 

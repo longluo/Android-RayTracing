@@ -1,4 +1,4 @@
-package me.longluo.raytracing.chapter2;
+package me.longluo.raytracing.chapter4;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import me.longluo.raytracing.base.Ray;
@@ -21,7 +23,7 @@ import me.longluo.raytracing.util.Constants;
 import me.longluo.raytracing.util.Utils;
 import timber.log.Timber;
 
-public class RayTracing2 {
+public class RayTracing4 {
 
     private int mWidth;
 
@@ -37,6 +39,8 @@ public class RayTracing2 {
 
     private String mImageFileName;
 
+    private Hitable world;
+
     private Handler mHandler;
 
     @Nullable
@@ -50,11 +54,11 @@ public class RayTracing2 {
 
     private Vec3 origin = new Vec3(0.0f, 0.0f, 0.0f);
 
-    public RayTracing2() {
-        this(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, Chapter2_RayCameraBgActivity.CURRENT_MODULE);
+    public RayTracing4() {
+        this(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, Chapter4_SurfaceNormalActivity.CURRENT_MODULE);
     }
 
-    public RayTracing2(int width, int height, String name) {
+    public RayTracing4(int width, int height, String name) {
         mWidth = width;
         mHeight = height;
         mTitle = name;
@@ -99,6 +103,13 @@ public class RayTracing2 {
         mPpmFileName = initPpmFile();
 
         Timber.d("ppmFileName: %s, total lines: %s", mPpmFileName, mTotal);
+
+        //多个球体的信息
+        List<Hitable> objList = new ArrayList<Hitable>();
+        objList.add(new Sphere(new Vec3(0.0f, 0.0f, -1.0f), 0.5f));
+        objList.add(new Sphere(new Vec3(0.3f, 0.0f, -1.0f), 0.3f));
+        objList.add(new Sphere(new Vec3(0.0f, -100.5f, -1.0f), 100f));
+        world = new HitableList(objList);
 
         try {
             FileWriter fw = new FileWriter(mPpmFileName);
@@ -227,10 +238,35 @@ public class RayTracing2 {
         return bitmap;
     }
 
+    public double hitSphere(final Vec3 center, double radius, final Ray r) {
+        Vec3 oc = r.origin().Subtract(center);      //oc = A-C
+        double a = r.direction().dot(r.direction()); //a = B·B
+        double b = 2.0f * oc.dot(r.direction());     //b = 2B·oc
+        double c = oc.dot(oc) - radius * radius;     //c = oc^2 - R^2
+        double discriminant = b * b - 4 * a * c;
+        if (discriminant < 0) {
+            return -1.0f;
+        } else {
+            return (-b - Math.sqrt(discriminant)) / (2.0f * a);
+        }
+    }
+
+    /**
+     * @param r 光线
+     * @return 颜色
+     */
     public Vec3 color(Ray r) {
-        Vec3 unit_dir = r.direction().normalize();  //单位方向向量
-        double t = 0.5f * (unit_dir.y() + 1.0f);     //原本范围为[-1,1]调整为[0,1]
-        return new Vec3(1.0f, 1.0f, 1.0f).Scale(1.0f - t).Add(new Vec3(0.5f, 0.7f, 1.0f).Scale(t));
-        //返回背景(1.0-t)*vec3(1.0, 1.0, 1.0) + t*vec3(0.5, 0.7, 1.0); 沿着y轴线性插值，返回的颜色介于白色与天蓝色之间
+        HitRecord rec = new HitRecord();
+
+        if (world.hit(r, 0.0f, Float.MAX_VALUE, rec)) {
+            // 有撞击点，按撞击点法向量代表的颜色绘制
+            return new Vec3(rec.normal.x() + 1, rec.normal.y() + 1, rec.normal.z() + 1).Scale(0.5f);
+        } else {
+            // 没有撞击点，绘制背景
+            Vec3 unit_dir = r.direction().normalize();  //单位方向向量
+            double t = 0.5f * (unit_dir.y() + 1.0f);     //原本范围为[-1,1]调整为[0,1]
+            return new Vec3(1.0f, 1.0f, 1.0f).Scale(1.0f - t).Add(new Vec3(0.5f, 0.7f, 1.0f).Scale(t));
+            // 返回背景(1.0-t)*vec3(1.0, 1.0, 1.0) + t*vec3(0.5, 0.7, 1.0); 沿着y轴线性插值，返回的颜色介于白色与天蓝色之间
+        }
     }
 }
