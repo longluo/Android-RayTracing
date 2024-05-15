@@ -19,7 +19,6 @@ import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 import java.io.File;
 
-import me.longluo.droidutils.FileIOUtils;
 import me.longluo.droidutils.FileUtils;
 import me.longluo.raytracing.R;
 import me.longluo.raytracing.listener.OnRayTracingListener;
@@ -30,6 +29,12 @@ import timber.log.Timber;
 
 
 public class Chapter1_PpmActivity extends AppCompatActivity implements OnRayTracingListener<String> {
+
+    protected static final String CURRENT_MODULE = "Chapter1";
+
+    private static final String STORE_PATH = Constants.RAY_TRACING_PATH + File.separator + CURRENT_MODULE;
+
+    private static final String RENDER_IMAGE_NAME = CURRENT_MODULE + "_" + Constants.IMAGE_WIDTH + "x" + Constants.IMAGE_HEIGHT + ".jpg";
 
     private QMUITopBarLayout mTopBar;
 
@@ -95,14 +100,20 @@ public class Chapter1_PpmActivity extends AppCompatActivity implements OnRayTrac
     }
 
     private void initData() {
-        mTopBar.setTitle("Chapter 1 PPM File");
+        mTopBar.setTitle("Chapter 1 PPM Image(Hello World)");
+        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         String path = Environment.getExternalStorageDirectory() + File.separator + getString(R.string.app_name)
-                + File.separator + "Chapter1";
+                + File.separator + CURRENT_MODULE;
 
         Utils.createFile(path);
 
-        mRayTracing = new RayTracing1(600, 400, "Chapter1");
+        mRayTracing = new RayTracing1(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, CURRENT_MODULE);
 
         mRayTracing.setStorePath(path);
 
@@ -140,6 +151,13 @@ public class Chapter1_PpmActivity extends AppCompatActivity implements OnRayTrac
                 return value + "/" + maxValue;
             }
         });
+
+        String renderImgPath = STORE_PATH + File.separator + RENDER_IMAGE_NAME;
+        File file = new File(renderImgPath);
+
+        Timber.i("image path: %s", renderImgPath);
+
+        Glide.with(this).load(file).into(mIvResult);
     }
 
     @Override
@@ -167,7 +185,7 @@ public class Chapter1_PpmActivity extends AppCompatActivity implements OnRayTrac
         Timber.i("onRenderSuccess result %s", result);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(result).append(",size").append(FileUtils.getSize(result));
+        sb.append(result).append(", size: ").append(FileUtils.getSize(result));
 
         runOnUiThread(new Runnable() {
             @Override
@@ -183,7 +201,7 @@ public class Chapter1_PpmActivity extends AppCompatActivity implements OnRayTrac
         Timber.i("onConvertSuccess result %s", result);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(result).append(",size").append(FileUtils.getSize(result));
+        sb.append(result).append(", size: ").append(FileUtils.getSize(result));
 
         runOnUiThread(new Runnable() {
             @Override

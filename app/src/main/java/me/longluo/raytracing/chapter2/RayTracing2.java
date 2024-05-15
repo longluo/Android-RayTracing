@@ -12,8 +12,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.StringTokenizer;
 
 import me.longluo.raytracing.listener.OnRayTracingListener;
@@ -50,6 +48,10 @@ public class RayTracing2 {
 
     private Vec3 origin = new Vec3(0.0f, 0.0f, 0.0f);
 
+    public RayTracing2() {
+        this(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, Chapter2_RayCameraBgActivity.CURRENT_MODULE);
+    }
+
     public RayTracing2(int width, int height, String name) {
         mWidth = width;
         mHeight = height;
@@ -76,17 +78,17 @@ public class RayTracing2 {
      * @return 要保存的图片名
      */
     private String initPpmFile() {
-        SimpleDateFormat df = new SimpleDateFormat("HH_mm_ss");
+//        SimpleDateFormat df = new SimpleDateFormat("HH_mm_ss");
 
-        String pictureName = mStorePath + "/" + mTitle + "_" + df.format(new Date()) + ".ppm";
+        String pictureName = mStorePath + "/" + mTitle + "_" + mWidth + "x" + mHeight + ".ppm";
 
         return pictureName;
     }
 
     private String initPngFile() {
-        SimpleDateFormat df = new SimpleDateFormat("HH_mm_ss");
+//        SimpleDateFormat df = new SimpleDateFormat("HH_mm_ss");
 
-        String pictureName = mStorePath + File.separator + mTitle + "_" + df.format(new Date()) + ".jpg";
+        String pictureName = mStorePath + File.separator + mTitle + "_" + mWidth + "x" + mHeight + ".jpg";
 
         return pictureName;
     }

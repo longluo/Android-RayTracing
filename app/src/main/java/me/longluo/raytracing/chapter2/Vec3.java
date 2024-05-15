@@ -2,12 +2,12 @@ package me.longluo.raytracing.chapter2;
 
 public class Vec3 {
 
-    //定义最基本的数据格式：三维的浮点型坐标
+    // 定义最基本的数据格式：三维的浮点型坐标
     public double[] e = new double[3];
 
-    //构造函数
+    // 构造函数
     public Vec3() {
-
+        this(0, 0, 0);
     }
 
     public Vec3(double x, double y, double z) {
@@ -29,7 +29,7 @@ public class Vec3 {
         return e[2];
     }
 
-    //向量求和
+    // 向量求和
     public Vec3 Add(Vec3 a, Vec3 b) {
         return new Vec3(a.e[0] + b.e[0], a.e[1] + b.e[1], a.e[2] + b.e[2]);
     }
@@ -58,25 +58,16 @@ public class Vec3 {
 
     //求向量的模长
     public double length() {
-        return Math.sqrt(
-                //Math.pow((double)(e[0] + e[0]), 2.0) +
-                // Math.pow((double)(e[1] + e[1]), 2.0) +
-                // Math.pow((double)(e[2] + e[2]), 2.0)
-                Math.pow((double) e[0], 2.0) +
-                        Math.pow((double) e[1], 2.0) +
-                        Math.pow((double) e[2], 2.0)
-        );
+        return Math.sqrt(Math.pow(e[0], 2.0) +
+                Math.pow(e[1], 2.0) +
+                Math.pow(e[2], 2.0));
     }
 
     //模长的平方
     public double sqrLength() {
-        return
-                //Math.pow((double)(e[0] + e[0]), 2.0) +
-                // Math.pow((double)(e[1] + e[1]), 2.0) +
-                // Math.pow((double)(e[2] + e[2]), 2.0));
-                Math.pow((double) e[0], 2.0) +
-                        Math.pow((double) e[1], 2.0) +
-                        Math.pow((double) e[2], 2.0);
+        return Math.pow(e[0], 2.0) +
+                Math.pow(e[1], 2.0) +
+                Math.pow(e[2], 2.0);
     }
 
     //向量归一化

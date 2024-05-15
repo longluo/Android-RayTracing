@@ -43,7 +43,7 @@ public class RayTracing1 {
     private OnRayTracingListener mListener;
 
     public RayTracing1() {
-        this(200, 100, "Ray Tracer");
+        this(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, Chapter1_PpmActivity.CURRENT_MODULE);
     }
 
     public RayTracing1(int width, int height, String name) {
@@ -72,17 +72,17 @@ public class RayTracing1 {
      * @return 要保存的图片名
      */
     private String initPpmFile() {
-        SimpleDateFormat df = new SimpleDateFormat("HH_mm_ss");
+//        SimpleDateFormat df = new SimpleDateFormat("HH_mm_ss");
 
-        String pictureName = mStorePath + "/" + mTitle + "_" + df.format(new Date()) + ".ppm";
+        String pictureName = mStorePath + "/" + mTitle + "_" + mWidth + "x" + mHeight + ".ppm";
 
         return pictureName;
     }
 
     private String initPngFile() {
-        SimpleDateFormat df = new SimpleDateFormat("HH_mm_ss");
+//        SimpleDateFormat df = new SimpleDateFormat("HH_mm_ss");
 
-        String pictureName = mStorePath + File.separator + mTitle + "_" + df.format(new Date()) + ".jpg";
+        String pictureName = mStorePath + File.separator + mTitle + "_" + mWidth + "x" + mHeight + ".jpg";
 
         return pictureName;
     }

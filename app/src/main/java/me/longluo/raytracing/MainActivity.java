@@ -24,7 +24,7 @@ import java.util.List;
 import me.longluo.raytracing.base.BaseRecyclerAdapter;
 import me.longluo.raytracing.base.RecyclerViewHolder;
 import me.longluo.raytracing.chapter1.Chapter1_PpmActivity;
-import me.longluo.raytracing.chapter2.Chapter2_RayActivity;
+import me.longluo.raytracing.chapter2.Chapter2_RayCameraBgActivity;
 import me.longluo.raytracing.util.Utils;
 import timber.log.Timber;
 
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 if (position == 0) {
                     startActivity(new Intent(MainActivity.this, Chapter1_PpmActivity.class));
                 } else if (position == 1) {
-                    startActivity(new Intent(MainActivity.this, Chapter2_RayActivity.class));
+                    startActivity(new Intent(MainActivity.this, Chapter2_RayCameraBgActivity.class));
                 }
             }
         });
@@ -119,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
     private void onDataLoaded() {
         List<String> data = new ArrayList<>();
 
-        data.add("Chapter 1");
-        data.add("Chapter 2");
+        data.add("Chapter 1 PPM");
+        data.add("Chapter 2 Ray Camera Background");
 
         mAdapter.setData(data);
     }

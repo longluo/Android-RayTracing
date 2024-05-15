@@ -45,7 +45,7 @@
         
         <activity android:name=".chapter1.Chapter1_PpmActivity" />
 
-        <activity android:name=".chapter2.Chapter2_RayActivity" />
+        <activity android:name=".chapter2.Chapter2_RayCameraBgActivity" />
 
     </application>
 

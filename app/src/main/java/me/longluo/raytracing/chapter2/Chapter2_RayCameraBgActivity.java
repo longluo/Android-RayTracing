@@ -28,7 +28,13 @@ import me.longluo.raytracing.util.Utils;
 import timber.log.Timber;
 
 
-public class Chapter2_RayActivity extends AppCompatActivity implements OnRayTracingListener<String> {
+public class Chapter2_RayCameraBgActivity extends AppCompatActivity implements OnRayTracingListener<String> {
+
+    protected static final String CURRENT_MODULE = "Chapter2";
+
+    private static final String STORE_PATH = Constants.RAY_TRACING_PATH + File.separator + CURRENT_MODULE;
+
+    private static final String RENDER_IMAGE_NAME = CURRENT_MODULE + "_" + Constants.IMAGE_WIDTH + "x" + Constants.IMAGE_HEIGHT + ".jpg";
 
     private QMUITopBarLayout mTopBar;
 
@@ -94,14 +100,20 @@ public class Chapter2_RayActivity extends AppCompatActivity implements OnRayTrac
     }
 
     private void initData() {
-        mTopBar.setTitle("Chapter 2 PPM File");
+        mTopBar.setTitle("Chapter 2 Ray, Camear and Background");
+        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         String path = Environment.getExternalStorageDirectory() + File.separator + getString(R.string.app_name)
-                + File.separator + "Chapter2";
+                + File.separator + CURRENT_MODULE;
 
         Utils.createFile(path);
 
-        mRayTracing = new RayTracing2(600, 400, "Chapter2");
+        mRayTracing = new RayTracing2(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, CURRENT_MODULE);
 
         mRayTracing.setStorePath(path);
 
@@ -139,6 +151,13 @@ public class Chapter2_RayActivity extends AppCompatActivity implements OnRayTrac
                 return value + "/" + maxValue;
             }
         });
+
+        String renderImgPath = STORE_PATH + File.separator + RENDER_IMAGE_NAME;
+        File file = new File(renderImgPath);
+
+        Timber.i("image path: %s", renderImgPath);
+
+        Glide.with(this).load(file).into(mIvResult);
     }
 
     @Override
@@ -166,7 +185,7 @@ public class Chapter2_RayActivity extends AppCompatActivity implements OnRayTrac
         Timber.i("onRenderSuccess result %s", result);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(result).append(",size").append(FileUtils.getSize(result));
+        sb.append(result).append(", size: ").append(FileUtils.getSize(result));
 
         runOnUiThread(new Runnable() {
             @Override
@@ -182,7 +201,7 @@ public class Chapter2_RayActivity extends AppCompatActivity implements OnRayTrac
         Timber.i("onConvertSuccess result %s", result);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(result).append(",size").append(FileUtils.getSize(result));
+        sb.append(result).append(", size: ").append(FileUtils.getSize(result));
 
         runOnUiThread(new Runnable() {
             @Override
@@ -190,7 +209,7 @@ public class Chapter2_RayActivity extends AppCompatActivity implements OnRayTrac
                 mTvJpgFile.setText(sb.toString());
 
                 File file = new File(result);
-                Glide.with(Chapter2_RayActivity.this).load(file).into(mIvResult);
+                Glide.with(Chapter2_RayCameraBgActivity.this).load(file).into(mIvResult);
             }
         });
     }
