@@ -1,4 +1,4 @@
-package me.longluo.raytracing.chapter4;
+package me.longluo.raytracing.chapter5;
 
 import me.longluo.raytracing.base.Ray;
 import me.longluo.raytracing.base.Vec3;
@@ -8,6 +8,10 @@ public class Sphere extends Hitable {
     private Vec3 center;
 
     private double radius;
+
+    public Sphere() {
+
+    }
 
     public Sphere(Vec3 center, float radius) {
         this.center = center;
@@ -26,34 +30,25 @@ public class Sphere extends Hitable {
     @Override
     public boolean hit(Ray r, double t_min, double t_max, HitRecord rec) {
         Vec3 oc = r.origin().Subtract(center);
-
         double a = r.direction().dot(r.direction());
         double b = 2 * oc.dot(r.direction());
         double c = oc.dot(oc) - radius * radius;
-
         double discriminant = b * b - 4.0f * a * c;
-
         if (discriminant > 0) {
-            // 优先选取符合范围的根较小的撞击点，若没有再选取另一个根
-            double discFactor = Math.sqrt(discriminant);
-
+            //优先选取符合范围的根较小的撞击点，若没有再选取另一个根
+            double discFactor = (float) Math.sqrt(discriminant);
             double temp = (-b - discFactor) / (2.0f * a);
-
             if (temp < t_max && temp > t_min) {
-                rec.time = temp;
-                rec.point = r.point_at_parameter(rec.time);
-                rec.normal = (rec.point.Subtract(center)).Scale(1.0f / radius);
-                rec.setSurfaceNormal(r);
+                rec.t = temp;
+                rec.p = r.point_at_parameter(rec.t);
+                rec.normal = (rec.p.Subtract(center)).Scale(1.0f / radius);
                 return true;
             }
-
             temp = (-b + discFactor) / (2.0f * a);
-
             if (temp < t_max && temp > t_min) {
-                rec.time = temp;
-                rec.point = r.point_at_parameter(rec.time);
-                rec.normal = (rec.point.Subtract(center)).Scale(1.0f / radius);
-                rec.setSurfaceNormal(r);
+                rec.t = temp;
+                rec.p = r.point_at_parameter(rec.t);
+                rec.normal = (rec.p.Subtract(center)).Scale(1.0f / radius);
                 return true;
             }
         }

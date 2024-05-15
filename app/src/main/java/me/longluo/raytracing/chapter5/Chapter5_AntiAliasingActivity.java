@@ -1,4 +1,4 @@
-package me.longluo.raytracing.chapter4;
+package me.longluo.raytracing.chapter5;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -28,9 +28,9 @@ import me.longluo.raytracing.util.Utils;
 import timber.log.Timber;
 
 
-public class Chapter4_SurfaceNormalActivity extends AppCompatActivity implements OnRayTracingListener<String> {
+public class Chapter5_AntiAliasingActivity extends AppCompatActivity implements OnRayTracingListener<String> {
 
-    protected static final String CURRENT_MODULE = "Chapter4";
+    protected static final String CURRENT_MODULE = "Chapter5";
 
     private static final String STORE_PATH = Constants.RAY_TRACING_PATH + File.separator + CURRENT_MODULE;
 
@@ -50,7 +50,7 @@ public class Chapter4_SurfaceNormalActivity extends AppCompatActivity implements
 
     private ImageView mIvResult;
 
-    private RayTracing4 mRayTracing;
+    private RayTracing5 mRayTracing;
 
     Handler mHandler = new Handler(Looper.getMainLooper()) {
 
@@ -77,7 +77,7 @@ public class Chapter4_SurfaceNormalActivity extends AppCompatActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_chapter4);
+        setContentView(R.layout.activity_chapter5);
 
         initView();
         initData();
@@ -100,7 +100,7 @@ public class Chapter4_SurfaceNormalActivity extends AppCompatActivity implements
     }
 
     private void initData() {
-        mTopBar.setTitle("Chapter 4 Surface Normals and Multiple Objects");
+        mTopBar.setTitle("Chapter 5 Anti Aliasing");
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +113,7 @@ public class Chapter4_SurfaceNormalActivity extends AppCompatActivity implements
 
         Utils.createFile(path);
 
-        mRayTracing = new RayTracing4(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, CURRENT_MODULE);
+        mRayTracing = new RayTracing5(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, CURRENT_MODULE);
 
         mRayTracing.setStorePath(path);
 
@@ -209,7 +209,7 @@ public class Chapter4_SurfaceNormalActivity extends AppCompatActivity implements
                 mTvJpgFile.setText(sb.toString());
 
                 File file = new File(result);
-                Glide.with(Chapter4_SurfaceNormalActivity.this).load(file).into(mIvResult);
+                Glide.with(Chapter5_AntiAliasingActivity.this).load(file).into(mIvResult);
             }
         });
     }

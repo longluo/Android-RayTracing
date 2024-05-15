@@ -31,6 +31,14 @@ public class Vec3 {
         return e[2];
     }
 
+    public Vec3 reverse() {
+        return new Vec3(-e[0], -e[1], -e[2]);
+    }
+
+    public Vec3 reverse(Vec3 a) {
+        return new Vec3(-a.e[0], -a.e[1], -a.e[2]);
+    }
+
     // 向量求和
     public Vec3 Add(Vec3 a, Vec3 b) {
         return new Vec3(a.e[0] + b.e[0], a.e[1] + b.e[1], a.e[2] + b.e[2]);

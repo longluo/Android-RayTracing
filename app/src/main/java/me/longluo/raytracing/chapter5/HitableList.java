@@ -1,4 +1,4 @@
-package me.longluo.raytracing.chapter4;
+package me.longluo.raytracing.chapter5;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,17 +29,15 @@ public class HitableList extends Hitable {
     @Override
     public boolean hit(Ray r, double t_min, double t_max, HitRecord rec) {
         HitRecord tempRec = new HitRecord();
-
         boolean hitAnything = false;
         double closestSoFar = t_max;
-
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).hit(r, t_min, closestSoFar, tempRec)) {
                 hitAnything = true;
-                closestSoFar = tempRec.time;       //每当有撞击点，tmax就会减为最近的一次撞击点
-                rec.time = tempRec.time;
+                closestSoFar = tempRec.t;       //每当有撞击点，tmax就会减为最近的一次撞击点
+                rec.t = tempRec.t;
                 rec.normal = tempRec.normal;
-                rec.point = tempRec.point;
+                rec.p = tempRec.p;
             }
         }
 

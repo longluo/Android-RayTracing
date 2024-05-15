@@ -27,6 +27,7 @@ import me.longluo.raytracing.chapter1.Chapter1_PpmActivity;
 import me.longluo.raytracing.chapter2.Chapter2_RayCameraBgActivity;
 import me.longluo.raytracing.chapter3.Chapter3_SphereActivity;
 import me.longluo.raytracing.chapter4.Chapter4_SurfaceNormalActivity;
+import me.longluo.raytracing.chapter5.Chapter5_AntiAliasingActivity;
 import me.longluo.raytracing.util.Utils;
 import timber.log.Timber;
 
@@ -111,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, Chapter3_SphereActivity.class));
                 } else if (position == 3) {
                     startActivity(new Intent(MainActivity.this, Chapter4_SurfaceNormalActivity.class));
+                } else if (position == 4) {
+                    startActivity(new Intent(MainActivity.this, Chapter5_AntiAliasingActivity.class));
                 }
             }
         });
@@ -129,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
         data.add("Chapter 2 Ray Camera Background");
         data.add("Chapter 3 add a Sphere");
         data.add("Chapter 4 Surface Normals and Multiple Objects");
+        data.add("Chapter 5 Anti Aliasing");
 
         mAdapter.setData(data);
     }
