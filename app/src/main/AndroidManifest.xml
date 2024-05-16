@@ -35,23 +35,45 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity android:name=".chapter1.Chapter1_PpmActivity" />
 
-        <activity android:name=".chapter2.Chapter2_RayCameraBgActivity" />
+        <activity
+            android:name=".chapter1.Chapter1_PpmActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi" />
 
-        <activity android:name=".chapter3.Chapter3_SphereActivity" />
+        <activity
+            android:name=".chapter2.Chapter2_RayCameraBgActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi" />
 
-        <activity android:name=".chapter4.Chapter4_SurfaceNormalActivity" />
+        <activity
+            android:name=".chapter3.Chapter3_SphereActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi" />
 
-        <activity android:name=".chapter5.Chapter5_AntiAliasingActivity" />
+        <activity
+            android:name=".chapter4.Chapter4_SurfaceNormalActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi" />
+
+        <activity
+            android:name=".chapter5.Chapter5_AntiAliasingActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi" />
+
+        <activity
+            android:name=".chapter6.Chapter6_DiffuseMaterialActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi" />
 
     </application>
 

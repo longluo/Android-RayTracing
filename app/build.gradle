@@ -11,8 +11,8 @@ android {
         applicationId "me.longluo.raytracing"
         minSdk 25
         targetSdk 31
-        versionCode 7
-        versionName "2.6"
+        versionCode 8
+        versionName "2.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
