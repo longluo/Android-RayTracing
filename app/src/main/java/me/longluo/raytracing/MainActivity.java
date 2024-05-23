@@ -35,6 +35,7 @@ import me.longluo.raytracing.chapter4.Chapter4_SurfaceNormalActivity;
 import me.longluo.raytracing.chapter5.Chapter5_AntiAliasingActivity;
 import me.longluo.raytracing.chapter6.Chapter6_DiffuseMaterialActivity;
 import me.longluo.raytracing.chapter7.Chapter7_MetalActivity;
+import me.longluo.raytracing.render.RenderActivity;
 import me.longluo.raytracing.util.Utils;
 import timber.log.Timber;
 
@@ -125,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, Chapter6_DiffuseMaterialActivity.class));
                 } else if (position == 6) {
                     startActivity(new Intent(MainActivity.this, Chapter7_MetalActivity.class));
+                } else if (position == 8) {
+                    startActivity(new Intent(MainActivity.this, RenderActivity.class));
                 }
             }
         });
@@ -147,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         data.add("Chapter 6 Diffuse Materials");
         data.add("Chapter 7 Metal");
         data.add("Chapter 8 Dielectic");
+        data.add("Cpp Render RayTracing");
 
         mAdapter.setData(data);
     }

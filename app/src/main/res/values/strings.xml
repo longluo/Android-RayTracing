@@ -3,4 +3,9 @@
 
     <string name="start">开始</string>
 
+    <string name="reflections">Reflections</string>
+    <string name="lightprobe">Environment</string>
+    <string name="interlacing">Interlacing</string>
+    <string name="speed">Speed:</string>
+
 </resources>
