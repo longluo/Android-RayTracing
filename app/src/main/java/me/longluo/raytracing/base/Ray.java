@@ -7,6 +7,9 @@ public class Ray {
 
     public Vec3 direction;  //方向
 
+    public Ray() {
+    }
+
     public Ray(Vec3 origin, Vec3 direction) {
         this.origin = origin;
         this.direction = direction;

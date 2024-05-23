@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.StringTokenizer;
+
+import timber.log.Timber;
 
 
 public final class Utils {
@@ -75,6 +78,30 @@ public final class Utils {
         }
 
         return true;
+    }
+
+    public static void createFolder(String filePath) {
+        Timber.i("createFolder: %s", filePath);
+
+        if (TextUtils.isEmpty(filePath)) {
+            return ;
+        }
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            createFile(filePath);
+            return ;
+        }
+
+        if (Environment.isExternalStorageManager()) {
+            File dir = new File(filePath);
+
+            if (!dir.exists()) {
+                boolean isOk = dir.mkdirs();
+                Timber.i("%s mkdirs: %b", filePath, isOk);
+            } else {
+                Timber.i("%s Exists", filePath);
+            }
+        }
     }
 
     public static boolean createFile(String filePath) {

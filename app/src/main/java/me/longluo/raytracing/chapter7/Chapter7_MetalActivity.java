@@ -1,4 +1,4 @@
-package me.longluo.raytracing.chapter2;
+package me.longluo.raytracing.chapter7;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -28,9 +28,9 @@ import me.longluo.raytracing.util.Utils;
 import timber.log.Timber;
 
 
-public class Chapter2_RayCameraBgActivity extends AppCompatActivity implements OnRayTracingListener<String> {
+public class Chapter7_MetalActivity extends AppCompatActivity implements OnRayTracingListener<String> {
 
-    protected static final String CURRENT_MODULE = "Chapter2";
+    protected static final String CURRENT_MODULE = "Chapter7";
 
     private static final String STORE_PATH = Constants.RAY_TRACING_PATH + File.separator + CURRENT_MODULE;
 
@@ -50,7 +50,7 @@ public class Chapter2_RayCameraBgActivity extends AppCompatActivity implements O
 
     private ImageView mIvResult;
 
-    private RayTracing2 mRayTracing;
+    private RayTracing7 mRayTracing;
 
     Handler mHandler = new Handler(Looper.getMainLooper()) {
 
@@ -77,7 +77,7 @@ public class Chapter2_RayCameraBgActivity extends AppCompatActivity implements O
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_chapter2);
+        setContentView(R.layout.activity_chapter7);
 
         initView();
         initData();
@@ -100,7 +100,7 @@ public class Chapter2_RayCameraBgActivity extends AppCompatActivity implements O
     }
 
     private void initData() {
-        mTopBar.setTitle("Chapter 2 Ray, Camear and Background");
+        mTopBar.setTitle("Chapter 7 Metal");
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,9 +111,9 @@ public class Chapter2_RayCameraBgActivity extends AppCompatActivity implements O
         String path = Environment.getExternalStorageDirectory() + File.separator + getString(R.string.app_name)
                 + File.separator + CURRENT_MODULE;
 
-        Utils.createFolder(path);
+        Utils.createFile(path);
 
-        mRayTracing = new RayTracing2(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, CURRENT_MODULE);
+        mRayTracing = new RayTracing7(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, CURRENT_MODULE);
 
         mRayTracing.setStorePath(path);
 
@@ -209,7 +209,7 @@ public class Chapter2_RayCameraBgActivity extends AppCompatActivity implements O
                 mTvJpgFile.setText(sb.toString());
 
                 File file = new File(result);
-                Glide.with(Chapter2_RayCameraBgActivity.this).load(file).into(mIvResult);
+                Glide.with(Chapter7_MetalActivity.this).load(file).into(mIvResult);
             }
         });
     }

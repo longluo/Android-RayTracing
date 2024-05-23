@@ -3,7 +3,11 @@ package me.longluo.raytracing;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,6 +22,7 @@ import com.hjq.toast.Toaster;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +34,14 @@ import me.longluo.raytracing.chapter3.Chapter3_SphereActivity;
 import me.longluo.raytracing.chapter4.Chapter4_SurfaceNormalActivity;
 import me.longluo.raytracing.chapter5.Chapter5_AntiAliasingActivity;
 import me.longluo.raytracing.chapter6.Chapter6_DiffuseMaterialActivity;
+import me.longluo.raytracing.chapter7.Chapter7_MetalActivity;
 import me.longluo.raytracing.util.Utils;
 import timber.log.Timber;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int PERMISSION_REQUEST_CODE = 1;
+    private static final int PERMISSION_REQUEST_CODE = 101;
 
     private QMUITopBarLayout mTopBar;
 
@@ -51,10 +57,10 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        requestPermission();
-
         initView();
         initData();
+
+        requestPermission();
     }
 
     private void initView() {
@@ -117,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, Chapter5_AntiAliasingActivity.class));
                 } else if (position == 5) {
                     startActivity(new Intent(MainActivity.this, Chapter6_DiffuseMaterialActivity.class));
+                } else if (position == 6) {
+                    startActivity(new Intent(MainActivity.this, Chapter7_MetalActivity.class));
                 }
             }
         });
@@ -125,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
         onDataLoaded();
 
-        Utils.createFolderInSdcard(getString(R.string.app_name));
+        createExternalFolder();
     }
 
     private void onDataLoaded() {
@@ -137,6 +145,8 @@ public class MainActivity extends AppCompatActivity {
         data.add("Chapter 4 Surface Normals and Multiple Objects");
         data.add("Chapter 5 Anti Aliasing");
         data.add("Chapter 6 Diffuse Materials");
+        data.add("Chapter 7 Metal");
+        data.add("Chapter 8 Dielectic");
 
         mAdapter.setData(data);
     }
@@ -173,20 +183,26 @@ public class MainActivity extends AppCompatActivity {
         if (!checkStoragePermission()) {
             requestStoragePermission();
         } else {
-            doYourWork();
+            createExternalFolder();
         }
     }
 
     private boolean checkStoragePermission() {
         int readPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
         int writePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        return readPermission == PackageManager.PERMISSION_GRANTED && writePermission == PackageManager.PERMISSION_GRANTED;
+        int managePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE);
+
+        return readPermission == PackageManager.PERMISSION_GRANTED && writePermission == PackageManager.PERMISSION_GRANTED
+                && managePermission == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestStoragePermission() {
         // Request the permissions
         ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.MANAGE_EXTERNAL_STORAGE},
+
                 PERMISSION_REQUEST_CODE);
     }
 
@@ -194,18 +210,46 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 toast("已获取权限");
+                createExternalFolder();
             } else {
                 // Permissions are denied
                 // Handle the permissions rejection
+                openSetting();
             }
         }
     }
 
-    private void doYourWork() {
-        toast("Done");
+    private void openSetting() {
+        Timber.i("openSetting");
+
+        Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+        intent.setData(Uri.parse("package:" + this.getPackageName()));
+        startActivityForResult(intent, PERMISSION_REQUEST_CODE);
+    }
+
+    private void createExternalFolder() {
+        Timber.i("createExternalFolder SDK: %d", Build.VERSION.SDK_INT);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            return;
+        }
+
+        // 判断是否有使用外部存储的权限
+        if (Environment.isExternalStorageManager()) {
+            String appPath = Environment.getExternalStorageDirectory() + "/RayTracing/";
+            File dir = new File(appPath);
+
+            if (!dir.exists()) {
+                boolean isOk = dir.mkdirs();
+                Timber.i("%s mkdirs: %b", appPath, isOk);
+            } else {
+                Timber.i("%s Exists", appPath);
+            }
+        }
 
     }
 }
