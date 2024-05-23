@@ -84,6 +84,11 @@
             tools:ignore="DiscouragedApi" />
 
         <activity
+            android:name=".chapter11.Chapter11_ResultActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi" />
+
+        <activity
             android:name=".render.RenderActivity"
             android:configChanges="orientation|keyboardHidden" />
 

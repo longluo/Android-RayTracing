@@ -29,6 +29,7 @@ import java.util.List;
 import me.longluo.raytracing.base.BaseRecyclerAdapter;
 import me.longluo.raytracing.base.RecyclerViewHolder;
 import me.longluo.raytracing.chapter1.Chapter1_PpmActivity;
+import me.longluo.raytracing.chapter11.Chapter11_ResultActivity;
 import me.longluo.raytracing.chapter2.Chapter2_RayCameraBgActivity;
 import me.longluo.raytracing.chapter3.Chapter3_SphereActivity;
 import me.longluo.raytracing.chapter4.Chapter4_SurfaceNormalActivity;
@@ -126,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, Chapter6_DiffuseMaterialActivity.class));
                 } else if (position == 6) {
                     startActivity(new Intent(MainActivity.this, Chapter7_MetalActivity.class));
+                } else if (position == 7) {
+                    startActivity(new Intent(MainActivity.this, Chapter11_ResultActivity.class));
                 } else if (position == 8) {
                     startActivity(new Intent(MainActivity.this, RenderActivity.class));
                 }
@@ -149,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         data.add("Chapter 5 Anti Aliasing");
         data.add("Chapter 6 Diffuse Materials");
         data.add("Chapter 7 Metal");
-        data.add("Chapter 8 Dielectic");
+        data.add("Chapter 11  Final Result");
         data.add("Cpp Render RayTracing");
 
         mAdapter.setData(data);
