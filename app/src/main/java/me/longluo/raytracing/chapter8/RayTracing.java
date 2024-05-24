@@ -1,4 +1,4 @@
-package me.longluo.raytracing.chapter7;
+package me.longluo.raytracing.chapter8;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -16,14 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import me.longluo.raytracing.base.Ray;
-import me.longluo.raytracing.base.Vec3;
 import me.longluo.raytracing.listener.OnRayTracingListener;
 import me.longluo.raytracing.util.Constants;
 import me.longluo.raytracing.util.Utils;
 import timber.log.Timber;
 
-public class RayTracing7 {
+public class RayTracing {
 
     private static final int MAX_DEPTH = 50;
 
@@ -46,11 +44,11 @@ public class RayTracing7 {
     @Nullable
     private OnRayTracingListener mListener;
 
-    public RayTracing7() {
-        this(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, Chapter7_MetalActivity.CURRENT_MODULE);
+    public RayTracing() {
+        this(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, Chapter8_DielecticActivity.CURRENT_MODULE);
     }
 
-    public RayTracing7(int width, int height, String name) {
+    public RayTracing(int width, int height, String name) {
         mWidth = width;
         mHeight = height;
         mTitle = name;
@@ -98,12 +96,11 @@ public class RayTracing7 {
 
         //多个球体的信息
         List<Hitable> objList = new ArrayList<Hitable>();
-        objList.add(new Sphere(new Vec3(0.0f, 0.0f, -1.0f), 0.5f, new Lambertian(new Vec3(0.8f, 0.3f, 0.3f))));
-        objList.add(new Sphere(new Vec3(0.0f, -100.5f, -1.0f), 100f, new Lambertian(new Vec3(0.8f, 0.8f, 0.0f))));
-        //objList.add(new Sphere(new Vec3(0.0f,-100.5f,-1.0f), 100f, new Metal(new Vec3(0.8f, 0.8f, 0.8f), 0.0f)));
-        objList.add(new Sphere(new Vec3(1, 0, -1), 0.5f, new Metal(new Vec3(0.8f, 0.6f, 0.2f), 0.1f)));
-        objList.add(new Sphere(new Vec3(-1, 0, -1), 0.5f, new Metal(new Vec3(0.8f, 0.8f, 0.8f), 0.1f)));
+        objList.add(new Sphere(new Vec3(0.0f, 0.0f, -1.0f), 0.5f, new Lambertian(new Vec3(0.1f, 0.2f, 0.5f))));
 
+        objList.add(new Sphere(new Vec3(0.0f, -100.5f, -1.0f), 100f, new Lambertian(new Vec3(0.8f, 0.8f, 0.0f))));
+        objList.add(new Sphere(new Vec3(1.5f, 0, -2), 0.5f, new Metal(new Vec3(0.8f, 0.6f, 0.2f), 0.1f)));
+        objList.add(new Sphere(new Vec3(-1.5f, 0, -2), 0.5f, new Dielectic(1.5f)));
         Hitable world = new HitableList(objList);
 
         Camera camera = new Camera();
@@ -118,20 +115,14 @@ public class RayTracing7 {
 
             for (int j = mHeight - 1; j >= 0; j--) {
                 for (int i = 0; i < mWidth; i++) {
-                    Vec3 col = new Vec3(0, 0, 0);   //初始化该点的像素
-
+                    Vec3 col = new Vec3(0, 0, 0);
                     for (int s = 0; s < ns; s++) {
-                        double u = (i + Math.random()) / mWidth; //添加随机数 消锯齿
-                        double v = (j + Math.random()) / mHeight;
-
-                        Ray r = camera.GetRay(u, v);   //根据uv得出光线向量
-
-                        col = col.Add(color(r, world, MAX_DEPTH));   //根据每个像素点（光线）上色 累加
-
-                        col = new Vec3(Math.sqrt(col.x()), Math.sqrt(col.y()), Math.sqrt(col.z())); //gamma矫正
+                        double u = (i + Math.random()) / (double) mWidth; //添加随机数 消锯齿
+                        double v = (j + Math.random()) / (double) mHeight;
+                        Ray r = camera.GetRay(u, v);
+                        col = col.Add(color(r, world, 0));      //根据每个像素点上色 累加
                     }
-
-                    col = col.Scale(1.0f / ns);        //除以采样次数 平均化
+                    col = col.Scale(1.0f / (double) ns);        //除以采样次数 平均化
                     col = new Vec3(Math.sqrt(col.x()), Math.sqrt(col.y()), Math.sqrt(col.z())); //gamma矫正
 
                     index += 1;

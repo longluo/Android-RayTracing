@@ -1,13 +1,11 @@
-package me.longluo.raytracing.chapter7;
+package me.longluo.raytracing.chapter10;
 
 public class Metal extends Material {
 
     Vec3 albedo;    //反射率
-
     double fuzz;     //镜面模糊
 
     public Metal() {
-
     }
 
     public Metal(Vec3 albedo, double f) {

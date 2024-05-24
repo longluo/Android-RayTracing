@@ -1,4 +1,4 @@
-package me.longluo.raytracing.chapter7;
+package me.longluo.raytracing.chapter8;
 
 public class Metal extends Material {
 
@@ -7,13 +7,12 @@ public class Metal extends Material {
     double fuzz;     //镜面模糊
 
     public Metal() {
-
     }
 
-    public Metal(Vec3 albedo, double f) {
+    public Metal(Vec3 albedo, double fuzz) {
         this.albedo = albedo;
-        if (f < 1) {
-            this.fuzz = f;
+        if (fuzz < 1) {
+            this.fuzz = fuzz;
         } else {
             this.fuzz = 1;
         }

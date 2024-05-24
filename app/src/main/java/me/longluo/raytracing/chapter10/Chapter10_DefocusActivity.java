@@ -1,4 +1,4 @@
-package me.longluo.raytracing.chapter11;
+package me.longluo.raytracing.chapter10;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,6 +21,7 @@ import java.io.File;
 
 import me.longluo.droidutils.FileUtils;
 import me.longluo.raytracing.R;
+import me.longluo.raytracing.chapter7.RayTracing;
 import me.longluo.raytracing.listener.OnRayTracingListener;
 import me.longluo.raytracing.manager.ThreadPoolManager;
 import me.longluo.raytracing.util.Constants;
@@ -28,9 +29,9 @@ import me.longluo.raytracing.util.Utils;
 import timber.log.Timber;
 
 
-public class Chapter11_ResultActivity extends AppCompatActivity implements OnRayTracingListener<String> {
+public class Chapter10_DefocusActivity extends AppCompatActivity implements OnRayTracingListener<String> {
 
-    protected static final String CURRENT_MODULE = "Chapter11";
+    protected static final String CURRENT_MODULE = "Chapter10";
 
     private static final String STORE_PATH = Constants.RAY_TRACING_PATH + File.separator + CURRENT_MODULE;
 
@@ -50,7 +51,7 @@ public class Chapter11_ResultActivity extends AppCompatActivity implements OnRay
 
     private ImageView mIvResult;
 
-    private RayTracing11 mRayTracing;
+    private RayTracing mRayTracing;
 
     Handler mHandler = new Handler(Looper.getMainLooper()) {
 
@@ -77,7 +78,7 @@ public class Chapter11_ResultActivity extends AppCompatActivity implements OnRay
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_chapter11);
+        setContentView(R.layout.activity_chapter10);
 
         initView();
         initData();
@@ -100,7 +101,7 @@ public class Chapter11_ResultActivity extends AppCompatActivity implements OnRay
     }
 
     private void initData() {
-        mTopBar.setTitle("Chapter 11 The Final Result");
+        mTopBar.setTitle("Chapter 10 Defocus Blur");
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,8 +114,8 @@ public class Chapter11_ResultActivity extends AppCompatActivity implements OnRay
 
         Utils.createFile(path);
 
-//        mRayTracing = new RayTracing11(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, CURRENT_MODULE);
-        mRayTracing = new RayTracing11(1200, 1000, CURRENT_MODULE);
+//        mRayTracing = new RayTracing(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, CURRENT_MODULE);
+        mRayTracing = new RayTracing(1200, 1000, CURRENT_MODULE);
 
         mRayTracing.setStorePath(path);
 
@@ -210,7 +211,7 @@ public class Chapter11_ResultActivity extends AppCompatActivity implements OnRay
                 mTvJpgFile.setText(sb.toString());
 
                 File file = new File(result);
-                Glide.with(Chapter11_ResultActivity.this).load(file).into(mIvResult);
+                Glide.with(Chapter10_DefocusActivity.this).load(file).into(mIvResult);
             }
         });
     }

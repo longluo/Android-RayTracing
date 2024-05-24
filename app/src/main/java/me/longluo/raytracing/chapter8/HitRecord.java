@@ -1,7 +1,6 @@
-package me.longluo.raytracing.chapter7;
+package me.longluo.raytracing.chapter8;
 
 public class HitRecord {
-
     public double t;     //相撞的时间
 
     public Vec3 p;      //撞击点的坐标

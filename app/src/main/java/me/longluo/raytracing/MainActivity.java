@@ -29,6 +29,7 @@ import java.util.List;
 import me.longluo.raytracing.base.BaseRecyclerAdapter;
 import me.longluo.raytracing.base.RecyclerViewHolder;
 import me.longluo.raytracing.chapter1.Chapter1_PpmActivity;
+import me.longluo.raytracing.chapter10.Chapter10_DefocusActivity;
 import me.longluo.raytracing.chapter11.Chapter11_ResultActivity;
 import me.longluo.raytracing.chapter2.Chapter2_RayCameraBgActivity;
 import me.longluo.raytracing.chapter3.Chapter3_SphereActivity;
@@ -36,6 +37,8 @@ import me.longluo.raytracing.chapter4.Chapter4_SurfaceNormalActivity;
 import me.longluo.raytracing.chapter5.Chapter5_AntiAliasingActivity;
 import me.longluo.raytracing.chapter6.Chapter6_DiffuseMaterialActivity;
 import me.longluo.raytracing.chapter7.Chapter7_MetalActivity;
+import me.longluo.raytracing.chapter8.Chapter8_DielecticActivity;
+import me.longluo.raytracing.chapter9.Chapter9_CameraActivity;
 import me.longluo.raytracing.render.RenderActivity;
 import me.longluo.raytracing.util.Utils;
 import timber.log.Timber;
@@ -128,8 +131,14 @@ public class MainActivity extends AppCompatActivity {
                 } else if (position == 6) {
                     startActivity(new Intent(MainActivity.this, Chapter7_MetalActivity.class));
                 } else if (position == 7) {
-                    startActivity(new Intent(MainActivity.this, Chapter11_ResultActivity.class));
+                    startActivity(new Intent(MainActivity.this, Chapter8_DielecticActivity.class));
                 } else if (position == 8) {
+                    startActivity(new Intent(MainActivity.this, Chapter9_CameraActivity.class));
+                } else if (position == 9) {
+                    startActivity(new Intent(MainActivity.this, Chapter10_DefocusActivity.class));
+                } else if (position == 10) {
+                    startActivity(new Intent(MainActivity.this, Chapter11_ResultActivity.class));
+                } else if (position == 11) {
                     startActivity(new Intent(MainActivity.this, RenderActivity.class));
                 }
             }
@@ -152,8 +161,11 @@ public class MainActivity extends AppCompatActivity {
         data.add("Chapter 5 Anti Aliasing");
         data.add("Chapter 6 Diffuse Materials");
         data.add("Chapter 7 Metal");
-        data.add("Chapter 11  Final Result");
-        data.add("Cpp Render RayTracing");
+        data.add("Chapter 8 Dielectic");
+        data.add("Chapter 9 Camear");
+        data.add("Chapter 10 Defocus Blur");
+        data.add("Chapter 11 Final Result");
+        data.add("C++ Render RayTracing");
 
         mAdapter.setData(data);
     }

@@ -1,4 +1,4 @@
-package me.longluo.raytracing.chapter7;
+package me.longluo.raytracing.chapter8;
 
 public abstract class Material {
     //    public abstract boolean scatter(Ray r, HitRecord rec, Vec3 attenuation, Ray scattered);

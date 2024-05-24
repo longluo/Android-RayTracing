@@ -84,6 +84,21 @@
             tools:ignore="DiscouragedApi" />
 
         <activity
+            android:name=".chapter8.Chapter8_DielecticActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi" />
+
+        <activity
+            android:name=".chapter9.Chapter9_CameraActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi" />
+
+        <activity
+            android:name=".chapter10.Chapter10_DefocusActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi" />
+
+        <activity
             android:name=".chapter11.Chapter11_ResultActivity"
             android:screenOrientation="portrait"
             tools:ignore="DiscouragedApi" />

@@ -1,12 +1,6 @@
-package me.longluo.raytracing.chapter7;
+package me.longluo.raytracing.chapter8;
 
 public class Camera {
-
-    private Vec3 lower_left;
-    private Vec3 horizontal;
-    private Vec3 vertical;
-    private Vec3 origin;
-
     public Camera() {
         lower_left = new Vec3(-2.0f, -1.0f, -1.0f);
         horizontal = new Vec3(4.0f, 0.0f, 0.0f);
@@ -17,4 +11,9 @@ public class Camera {
     public Ray GetRay(double u, double v) {
         return new Ray(origin, lower_left.Add(horizontal.Scale(u)).Add(vertical.Scale(v)));
     }
+
+    private Vec3 lower_left;
+    private Vec3 horizontal;
+    private Vec3 vertical;
+    private Vec3 origin;
 }

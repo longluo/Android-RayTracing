@@ -1,4 +1,4 @@
-package me.longluo.raytracing.chapter7;
+package me.longluo.raytracing.chapter9;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +26,8 @@ public class HitableList extends Hitable {
     @Override
     public boolean hit(Ray r, double t_min, double t_max, HitRecord rec) {
         HitRecord tempRec = new HitRecord();
-
         boolean hitAnything = false;
         double closestSoFar = t_max;
-
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).hit(r, t_min, closestSoFar, tempRec)) {
                 hitAnything = true;
@@ -41,7 +39,6 @@ public class HitableList extends Hitable {
                 rec.matPtr = tempRec.matPtr;
             }
         }
-
         return hitAnything;
     }
 

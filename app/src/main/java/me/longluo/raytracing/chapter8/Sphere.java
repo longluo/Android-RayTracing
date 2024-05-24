@@ -1,9 +1,12 @@
-package me.longluo.raytracing.chapter7;
+package me.longluo.raytracing.chapter8;
 
 public class Sphere extends Hitable {
     Vec3 center;
+
     double radius;
+
     Material mat;
+
 
     public Sphere() {
     }
@@ -50,6 +53,7 @@ public class Sphere extends Hitable {
                 return true;
             }
         }
+
         return false;
     }
 

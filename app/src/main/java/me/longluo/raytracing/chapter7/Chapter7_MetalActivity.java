@@ -50,7 +50,7 @@ public class Chapter7_MetalActivity extends AppCompatActivity implements OnRayTr
 
     private ImageView mIvResult;
 
-    private RayTracing7 mRayTracing;
+    private RayTracing mRayTracing;
 
     Handler mHandler = new Handler(Looper.getMainLooper()) {
 
@@ -113,7 +113,7 @@ public class Chapter7_MetalActivity extends AppCompatActivity implements OnRayTr
 
         Utils.createFile(path);
 
-        mRayTracing = new RayTracing7(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, CURRENT_MODULE);
+        mRayTracing = new RayTracing(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, CURRENT_MODULE);
 
         mRayTracing.setStorePath(path);
 
