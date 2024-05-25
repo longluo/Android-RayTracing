@@ -1,4 +1,4 @@
-package me.longluo.raytracing.chapter11;
+package me.longluo.raytracing.chapter12;
 
 import java.util.Arrays;
 
@@ -120,4 +120,3 @@ public class Vec3 {
                 '}';
     }
 }
-

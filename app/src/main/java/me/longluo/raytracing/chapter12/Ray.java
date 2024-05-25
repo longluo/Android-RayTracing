@@ -1,4 +1,4 @@
-package me.longluo.raytracing.chapter11;
+package me.longluo.raytracing.chapter12;
 
 public class Ray {
 
@@ -6,12 +6,20 @@ public class Ray {
 
     public Vec3 d;  //方向
 
+    public double time; //光线的时间戳
+
     public Ray() {
     }
 
     public Ray(Vec3 origin, Vec3 direction) {
         o = origin;
         d = direction;
+    }
+
+    public Ray(Vec3 origin, Vec3 direction, double t) {
+        o = origin;
+        d = direction;
+        time = t;
     }
 
     public Vec3 origin() {

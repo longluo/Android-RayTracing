@@ -1,4 +1,4 @@
-package me.longluo.raytracing.chapter11;
+package me.longluo.raytracing.chapter12;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -21,7 +21,7 @@ import me.longluo.raytracing.util.Constants;
 import me.longluo.raytracing.util.Utils;
 import timber.log.Timber;
 
-public class RayTracing11 {
+public class RayTracing12 {
 
     private static final int MAX_DEPTH = 50;
 
@@ -44,11 +44,11 @@ public class RayTracing11 {
     @Nullable
     private OnRayTracingListener mListener;
 
-    public RayTracing11() {
-        this(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, Chapter11_ResultActivity.CURRENT_MODULE);
+    public RayTracing12() {
+        this(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, Chapter12_Activity.CURRENT_MODULE);
     }
 
-    public RayTracing11(int width, int height, String name) {
+    public RayTracing12(int width, int height, String name) {
         mWidth = width;
         mHeight = height;
         mTitle = name;
@@ -101,9 +101,9 @@ public class RayTracing11 {
 
         Vec3 lookfrom = new Vec3(13, 2, 3);
         Vec3 lookat = new Vec3(0, 0, 0);
-        double dist_to_focus = (lookfrom.Subtract(lookat)).length();
+        double dist_to_focus = 10.0f;
         double aperture = 0.0f;
-        Camera camera = new Camera(lookfrom, lookat, new Vec3(0, 1, 0), 20, aspect, aperture, 0.7f * dist_to_focus);
+        Camera camera = new Camera(lookfrom, lookat, new Vec3(0, 1, 0), 20, aspect, aperture, 0.7f * dist_to_focus, 0, 1);
         int ns = 100; //采样次数 消锯齿
 
         try {
@@ -121,20 +121,15 @@ public class RayTracing11 {
                         double u = (i + Math.random()) / mWidth; //添加随机数 消锯齿
                         double v = (j + Math.random()) / mHeight;
 
-                        Ray r = camera.GetRay(u, v);   //根据uv得出光线向量
+                        Ray r = camera.GetRay(u, v);
 
-                        col = col.Add(color(r, world, 0));   //根据每个像素点（光线）上色 累加
-
-                        col = new Vec3(Math.sqrt(col.x()), Math.sqrt(col.y()), Math.sqrt(col.z())); //gamma矫正
+                        col = col.Add(color(r, world, 0));      //根据每个像素点上色 累加
                     }
 
-                    col = col.Scale(1.0f / ns);        //除以采样次数 平均化
+                    col = col.Scale(1.0f / (double) ns);        //除以采样次数 平均化
                     col = new Vec3(Math.sqrt(col.x()), Math.sqrt(col.y()), Math.sqrt(col.z())); //gamma矫正
 
                     index += 1;
-
-                    // Timber.i("index: %d", index);
-
                     int ir = (int) (255.59f * col.x());
                     int ig = (int) (255.59f * col.y());
                     int ib = (int) (255.59f * col.z());
@@ -279,27 +274,28 @@ public class RayTracing11 {
         for (int a = -11; a < 11; a++) {
             for (int b = -11; b < 11; b++) {
                 /*两个for循环中会产生（11+11）*(11+11)=484个随机小球*/
-                double choose_mat =  Math.random();
+                double choose_mat = Math.random();
                 /*产生一个（0，1）的随机数，作为设置小球的材质的阀值*/
-                Vec3 center = new Vec3( (a + 0.9 * (Math.random())), 0.2f, (b + 0.9 * (Math.random())));
+                Vec3 center = new Vec3(a + 0.9 * (Math.random()), 0.2f, b + 0.9 * (Math.random()));
                 /*球心的x,z坐标散落在是（-11，11）之间的随机数*/
                 if ((center.Subtract(new Vec3(4, 0.2f, 0))).length() > 0.9) {
                     /*避免小球的位置和最前面的大球的位置太靠近*/
                     if (choose_mat < 0.8) {     //diffuse
                         /*材料阀值小于0.8，则设置为漫反射球，漫反射球的衰减系数x,y,z都是（0，1）之间的随机数的平方*/
                         objList.add(
-                                new Sphere(center, 0.2f, new Lambertian(
-                                        new Vec3(Math.random() * Math.random(),
-                                                Math.random() * Math.random(),
-                                                Math.random() * Math.random())
+                                new MovingSphere(center, center.Add(new Vec3(0, 0.5f * Math.random(), 0)), 0.0f, 1.0f, 0.2f, new Lambertian(
+                                        new Vec3((Math.random()) * (Math.random()),
+                                                (Math.random()) * (Math.random()),
+                                                (Math.random()) * (Math.random()))
                                 ))
                         );
                     } else if (choose_mat < 0.95) {
                         /*材料阀值大于等于0.8小于0.95，则设置为镜面反射球，镜面反射球的衰减系数x,y,z及模糊系数都是（0，1）之间的随机数加一再除以2*/
                         objList.add(
                                 new Sphere(center, 0.2f, new Metal(
-                                        new Vec3(0.5f * (1 + Math.random()),  (0.5f * (1 + (Math.random()))),  (0.5f * (1 + (Math.random())))),
-                                         (0.5 * (1 + (Math.random())))
+                                        new Vec3(0.5f * (1 + (Math.random())), 0.5f * (1 + (Math.random())),
+                                                0.5f * (1 + (Math.random()))),
+                                        0.5 * (1 + (Math.random()))
                                 ))
                         );
                     } else {

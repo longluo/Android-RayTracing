@@ -1,14 +1,19 @@
-package me.longluo.raytracing.chapter11;
+package me.longluo.raytracing.chapter12;
 
 public class Camera {
     private Vec3 lower_left;
     private Vec3 horizontal;
     private Vec3 vertical;
     private Vec3 origin;
+
     private double lens_radius;
+
     private Vec3 u = new Vec3();
     private Vec3 v = new Vec3();
     private Vec3 w = new Vec3();
+
+    private double time0;    //开始时间
+    private double time1;    //结束时间
 
     public Camera() {
         lower_left = new Vec3(-2.0f, -1.0f, -1.0f);
@@ -24,9 +29,12 @@ public class Camera {
      * @param vfov     角度 field of view
      * @param aspect   宽高比
      */
-    public Camera(Vec3 lookfrom, Vec3 lookat, Vec3 vup, double vfov, double aspect, double aperture, double focus_dist) {
+    public Camera(Vec3 lookfrom, Vec3 lookat, Vec3 vup, double vfov, double aspect, double aperture, double focus_dist, double t0, double t1) {
 
         lens_radius = aperture / 2;
+
+        time0 = t0;
+        time1 = t1;
 
         double theta = vfov * Math.PI / 180;
         double half_height = Math.tan(theta / 2);
@@ -45,7 +53,8 @@ public class Camera {
         //仿照一个透镜 模拟光圈的作用
         Vec3 rd = randomInUnitSphere().Scale(lens_radius);
         Vec3 offset = this.u.Scale(rd.x()).Add(this.v.Scale(rd.y()));
-        return new Ray(origin.Add(offset), lower_left.Add(horizontal.Scale(u)).Add(vertical.Scale(v)).Subtract(origin).Subtract(offset));
+        double time = time0 + Math.random() * (time1 - time0);
+        return new Ray(origin.Add(offset), lower_left.Add(horizontal.Scale(u)).Add(vertical.Scale(v)).Subtract(origin).Subtract(offset), time);
     }
 
     /**

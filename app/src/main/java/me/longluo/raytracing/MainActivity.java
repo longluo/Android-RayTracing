@@ -31,6 +31,7 @@ import me.longluo.raytracing.base.RecyclerViewHolder;
 import me.longluo.raytracing.chapter1.Chapter1_PpmActivity;
 import me.longluo.raytracing.chapter10.Chapter10_DefocusActivity;
 import me.longluo.raytracing.chapter11.Chapter11_ResultActivity;
+import me.longluo.raytracing.chapter12.Chapter12_Activity;
 import me.longluo.raytracing.chapter2.Chapter2_RayCameraBgActivity;
 import me.longluo.raytracing.chapter3.Chapter3_SphereActivity;
 import me.longluo.raytracing.chapter4.Chapter4_SurfaceNormalActivity;
@@ -139,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
                 } else if (position == 10) {
                     startActivity(new Intent(MainActivity.this, Chapter11_ResultActivity.class));
                 } else if (position == 11) {
+                    startActivity(new Intent(MainActivity.this, Chapter12_Activity.class));
+                } else if (position == 12) {
                     startActivity(new Intent(MainActivity.this, RenderActivity.class));
                 }
             }
@@ -165,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
         data.add("Chapter 9 Camear");
         data.add("Chapter 10 Defocus Blur");
         data.add("Chapter 11 Final Result");
+        data.add("Chapter 12 AABB");
         data.add("C++ Render RayTracing");
 
         mAdapter.setData(data);
