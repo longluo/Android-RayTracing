@@ -5,10 +5,13 @@ public class Camera {
     private Vec3 horizontal;
     private Vec3 vertical;
     private Vec3 origin;
+
     private double lens_radius;
+
     private Vec3 u = new Vec3();
     private Vec3 v = new Vec3();
     private Vec3 w = new Vec3();
+
     private double time0;    //开始时间
     private double time1;    //结束时间
 
@@ -29,12 +32,14 @@ public class Camera {
     public Camera(Vec3 lookfrom, Vec3 lookat, Vec3 vup, double vfov, double aspect, double aperture, double focus_dist, double t0, double t1) {
 
         lens_radius = aperture / 2;
+
         time0 = t0;
         time1 = t1;
 
-        double theta = (float) (vfov * Math.PI / 180);
-        double half_height = (float) (Math.tan(theta / 2));
+        double theta = vfov * Math.PI / 180;
+        double half_height = Math.tan(theta / 2);
         double half_width = aspect * half_height;
+
         origin = lookfrom;
         w = lookfrom.Subtract(lookat).normalize();      //相当于新的z
         u = vup.cross(w).normalize();                   //相当于新的x

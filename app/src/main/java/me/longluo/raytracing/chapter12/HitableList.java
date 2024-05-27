@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HitableList extends Hitable {
+
     public List<Hitable> list;
 
     public HitableList() {
@@ -26,8 +27,10 @@ public class HitableList extends Hitable {
     @Override
     public boolean hit(Ray r, double t_min, double t_max, HitRecord rec) {
         HitRecord tempRec = new HitRecord();
+
         boolean hitAnything = false;
         double closestSoFar = t_max;
+
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).hit(r, t_min, closestSoFar, tempRec)) {
                 hitAnything = true;

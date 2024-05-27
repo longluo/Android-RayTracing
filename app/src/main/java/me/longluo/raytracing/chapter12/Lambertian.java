@@ -1,6 +1,7 @@
 package me.longluo.raytracing.chapter12;
 
 public class Lambertian extends Material {
+
     Vec3 albedo;    //材料系数
 
     public Lambertian() {
@@ -21,6 +22,8 @@ public class Lambertian extends Material {
         Vec3 target = rec.p.Add(rec.normal).Add(randomInUnitSphere());  //相对位置->绝对位置 （p + N） + S
         wrapper.scattered = new Ray(rec.p, target.Subtract(rec.p));             //源点p 方向->ps
         wrapper.attenuation = albedo;
+
         return true;
     }
 }
+

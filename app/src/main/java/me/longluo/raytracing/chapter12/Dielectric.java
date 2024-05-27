@@ -5,6 +5,7 @@ public class Dielectric extends Material {
     double ref_idx; //ref_idx是指光密介质的折射指数和光疏介质的折射指数的比值
 
     public Dielectric() {
+
     }
 
     public Dielectric(double ref_idx) {
@@ -14,7 +15,9 @@ public class Dielectric extends Material {
     @Override
     public boolean scatter(Ray r, HitRecord rec, Wrapper wrapper) {
         Vec3 outward_normal;    //入射时的法向量
+
         Vec3 reflected = reflect(r.direction(), rec.normal);
+
         double ni_over_nt; //sin_a2 / sin_a1 折射介质的折射指数和入射介质的入射指数的比值
         double reflect_prob; //反射系数
         double cosine;
@@ -51,6 +54,7 @@ public class Dielectric extends Material {
         } else {
             wrapper.scattered = new Ray(rec.p, wrapper.refracted);
         }
+
         return true;
     }
 
@@ -65,6 +69,7 @@ public class Dielectric extends Material {
         Vec3 uv = v.normalize();
         double cos_a1 = -1.0f * uv.dot(n);
         double temp = 1.0f - nt * nt * (1.0f - cos_a1 * cos_a1);
+
         if (temp > 0.0f) {
             wrapper.refracted = uv.Scale(nt).Add(n.Scale((float) (nt * cos_a1 - Math.sqrt(temp))));
             return true;
@@ -95,6 +100,7 @@ public class Dielectric extends Material {
     double schlick(double cosine, double ref_idx) {
         double r0 = (1 - ref_idx) / (1 + ref_idx);
         r0 = r0 * r0;
-        return (float) (r0 + (1 - r0) * Math.pow((1 - cosine), 5));
+        return r0 + (1 - r0) * Math.pow((1 - cosine), 5);
     }
 }
+

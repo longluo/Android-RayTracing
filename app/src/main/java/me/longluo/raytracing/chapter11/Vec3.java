@@ -70,8 +70,7 @@ public class Vec3 {
     public double length() {
         return Math.sqrt(Math.pow(e[0], 2.0) +
                 Math.pow(e[1], 2.0) +
-                Math.pow(e[2], 2.0)
-        );
+                Math.pow(e[2], 2.0));
     }
 
     //模长的平方

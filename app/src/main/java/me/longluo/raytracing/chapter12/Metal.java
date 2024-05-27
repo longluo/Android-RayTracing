@@ -3,15 +3,17 @@ package me.longluo.raytracing.chapter12;
 public class Metal extends Material {
 
     Vec3 albedo;    //反射率
+
     double fuzz;     //镜面模糊
 
     public Metal() {
     }
 
-    public Metal(Vec3 albedo, double f) {
+    public Metal(Vec3 albedo, double fuzz) {
         this.albedo = albedo;
-        if (f < 1) {
-            this.fuzz = f;
+
+        if (fuzz < 1) {
+            this.fuzz = fuzz;
         } else {
             this.fuzz = 1;
         }
@@ -37,3 +39,4 @@ public class Metal extends Material {
         //return v - 2 * dot(v, n)*n;
     }
 }
+

@@ -1,9 +1,13 @@
 package me.longluo.raytracing.chapter12;
 
 public class HitRecord {
+
     public double t;     //相撞的时间
+
     public Vec3 p;      //撞击点的坐标
+
     public Vec3 normal; //撞击点的法向量
+
     public Material matPtr; //撞击的材料
 
     public HitRecord() {

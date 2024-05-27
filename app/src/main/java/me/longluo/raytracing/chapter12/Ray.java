@@ -1,8 +1,11 @@
 package me.longluo.raytracing.chapter12;
 
 public class Ray {
+
     public Vec3 o;  //源点
+
     public Vec3 d;  //方向
+
     public double time; //光线的时间戳
 
     public Ray() {

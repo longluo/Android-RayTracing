@@ -22,6 +22,7 @@ public class Ray {
         return d;
     }
 
+
     /**
      * p(t)=A+t*B 即返回t时刻光线的位置
      *
@@ -31,5 +32,6 @@ public class Ray {
     public Vec3 point_at_parameter(double t) {
         return o.Add(d.Scale(t));
     }
+
 
 }

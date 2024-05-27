@@ -27,6 +27,7 @@ public class HitableList extends Hitable {
     @Override
     public boolean hit(Ray r, double t_min, double t_max, HitRecord rec) {
         HitRecord tempRec = new HitRecord();
+
         boolean hitAnything = false;
         double closestSoFar = t_max;
 
